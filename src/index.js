@@ -1,17 +1,45 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import ReactDOM from 'react-dom';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+class LoginForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { username: '', password: '' };
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  handleUsernameChange(event) {
+    this.setState({ username: event.target.value });
+  }
+
+  handlePasswordChange(event) {
+    this.setState({ password: event.target.value });
+  }
+
+  handleSubmit(event) {
+    alert(`Username: ${this.state.username} Password: ${this.state.password}`);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Usuário:
+          <input type="text" value={this.state.username} onChange={this.handleUsernameChange} />
+        </label>
+        <br />
+        <label>
+          Senha:
+          <input type="password" value={this.state.password} onChange={this.handlePasswordChange} />
+        </label>
+        <br />
+        <input type="submit" value="Enviar" />
+      </form>
+    );
+  }
+}
+
+ReactDOM.render(<LoginForm />, document.getElementById('root'));
